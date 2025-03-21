@@ -1,7 +1,4 @@
-﻿
-using System.Security.Cryptography.X509Certificates;
-
-namespace WarehouseMenager.Model
+﻿namespace WareHouseManagerWebApp.Model
 {
     public class userModel: employeeModel
     {

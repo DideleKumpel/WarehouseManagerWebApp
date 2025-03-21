@@ -1,7 +1,5 @@
 ﻿
-using System;
-
-namespace WarehouseMenager.Model
+namespace WareHouseManagerWebApp.Model
 {
     public class productModel
     {

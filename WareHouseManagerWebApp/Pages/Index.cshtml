@@ -2,40 +2,29 @@
 @model IndexModel
 @{
     Layout = null;
+    <!-- Bez domyślnego layoutu -->
 }
 
-<!DOCKTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>Logowanie</title>
-    </head>
-    <body>
-        <div class="container">
-            <h1> Log in </h1>
-            <form method="post">
-                <div class="form_username">
-                <label for="Username">Username</label>
-                <input asp-for="Username" class="form-control" />
-                <span asp-validation-for="Username" class="text-danger"></span>
-                </div>
-			    <div class="form_password">
-                    <label for="Password">Password</label>
-                    <input asp-for="Password" class="form-control" type="password" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
+<h2>Login</h2>
 
-                <button type="submit" class="logInBtn">Zaloguj</button>
+<form method="post">
+    <div>
+        <label asp-for="Input.Username"></label>
+        <input asp-for="Input.Username" />
+        <span asp-validation-for="Input.Username"></span>
+    </div>
 
-                @if (!string.IsNullOrEmpty(Model.ErrorMessage))
-                {
-                <div class="alert alert-danger mt-3 text-center">
-                        @Model.ErrorMessage
-                </div>
-                }
-            </form>
-        </div>
+    <div>
+        <label asp-for="Input.Password"></label>
+        <input asp-for="Input.Password" type="password" />
+        <span asp-validation-for="Input.Password"></span>
+    </div>
 
-    </body>
-</html>
-<</!DOCKTYPE>
+    <button type="submit">Log in</button>
+
+    <div asp-validation-summary="All"></div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

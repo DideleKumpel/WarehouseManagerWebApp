@@ -1,5 +1,5 @@
 ﻿
-namespace WarehouseMenager.Model
+namespace WareHouseManagerWebApp.Model
 {
     public class locationModel
     {
