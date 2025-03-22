@@ -26,11 +26,12 @@ namespace WareHouseManagerWebApp.Service
         {
             try
             {
-                var user = await _dbContext.User.FirstOrDefaultAsync( u => u.Username == username && u.Password == password );
+                var user = await _dbContext.User.Include(u => u.Employee).FirstOrDefaultAsync( u => u.Username == username && u.Password == password );
                 return user;
             }
             catch (Exception ex)
             {
+                Console.WriteLine("Error ocured while logging- " + ex.Message);
                 return null;
             }
         }

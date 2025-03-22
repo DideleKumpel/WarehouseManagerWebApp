@@ -60,8 +60,8 @@ namespace WareHouseManagerWebApp.Pages
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Role, user.Role),
-                new Claim("FullName", $"{user.Name} {user.Lastname}"),
+                new Claim(ClaimTypes.Role, user.Employee.Role),
+                new Claim("FullName", $"{user.Employee.Name} {user.Employee.Lastname}"),
                 new Claim("UserId", user.Id.ToString())
             };
 
@@ -80,11 +80,11 @@ namespace WareHouseManagerWebApp.Pages
                 authProperties);
 
             // Redirect to ReturnUrl (or homepage)
-            if( user.Role == "manager" )
+            if( user.Employee.Role == "manager" )
             {
-                return LocalRedirect("/taskManager");
+                return LocalRedirect("/Tasks/taskManager");
             }
-            else if (user.Role == "operator")
+            else if (user.Employee.Role == "operator")
             {
                 return LocalRedirect("/operatorPanel");
             }
