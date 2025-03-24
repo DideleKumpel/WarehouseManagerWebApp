@@ -1,4 +1,5 @@
-﻿using WareHouseManagerWebApp.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using WareHouseManagerWebApp.Data;
 using WareHouseManagerWebApp.Model;
 
 namespace WareHouseManagerWebApp.Service
@@ -13,15 +14,15 @@ namespace WareHouseManagerWebApp.Service
         }
 
         // Fetch all tasks with their related data
-        //public async Task<List<taskModel>> GetAllTasksAsync()
-        //{
-        //    return await _context.Tasks
-        //        .Include(t => t.Ramp)
-        //        .Include(t => t.Employee)
-        //        .Include(t => t.Location)
-        //        .Include(t => t.Product)
-        //        .ToListAsync();
-        //}
+        public async Task<List<taskModel>> GetAllTasksAsync()
+        {
+            return await _context.Tasks
+                .Include(t => t.Employee)
+                .Include(t => t.Location)
+                .Include(t => t.Product)
+                .Include(t => t.Ramp)
+                .ToListAsync();
+        }
 
         //// Get a task by its ID
         //public async Task<taskModel> GetTaskByIdAsync(int taskId)

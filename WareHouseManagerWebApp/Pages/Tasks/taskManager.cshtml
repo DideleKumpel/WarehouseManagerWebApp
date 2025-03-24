@@ -3,3 +3,19 @@
 @{
     ViewData["Title"] = "Task Manager Panel";
 }
+
+
+<form method="post"> 
+    <div>
+        <label asp-for="TaskTypeValue">Select task </label>
+        <select asp-for="TaskTypeValue" class="form-control">
+            <option value="load">LOAD</option>
+            <option value="unload">UNLOAD</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="RampSelect.SelectedRampId">Select ramp</label>
+        <select asp-for="RampSelect.SelectedRampId" asp-items="Model.RampSelect.Ramps" class="form-control">
+        </select>
+    </div>
+</form>

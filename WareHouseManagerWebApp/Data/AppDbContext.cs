@@ -68,7 +68,7 @@ namespace WareHouseManagerWebApp.Data
             // column maping
             modelBuilder.Entity<productModel>()
                 .Property(p => p.Barcode)
-                .HasColumnName("product_id").IsRequired().HasMaxLength(50);
+                .HasColumnName("products_id").IsRequired().HasMaxLength(50);
             modelBuilder.Entity<productModel>()
                 .Property(p => p.Name)
                 .HasColumnName("productname").IsRequired().HasMaxLength(100);
@@ -87,7 +87,7 @@ namespace WareHouseManagerWebApp.Data
             // column maping
             modelBuilder.Entity<locationModel>()
                 .Property(l => l.Id)
-                .HasColumnName("location_id");
+                .HasColumnName("locations_id");
             modelBuilder.Entity<locationModel>()
                 .Property(l => l.Shelf)
                 .HasColumnName("shelf").IsRequired().HasMaxLength(10);
@@ -99,7 +99,12 @@ namespace WareHouseManagerWebApp.Data
                 .HasColumnName("Level").IsRequired().HasMaxLength(10);
             modelBuilder.Entity<locationModel>()
                 .Property(l => l.MaxCapacity)
-                .HasColumnName("max_capacity").IsRequired();
+                .HasColumnName("maxcapacity").IsRequired();
+            modelBuilder.Entity<locationModel>()
+                .Property(l => l.ItemBarcode)
+                .HasColumnName("products_products_id").IsRequired(false);
+
+            //Relaction in db
             modelBuilder.Entity<locationModel>()
                 .HasOne(l => l.Product) // relaction to ProductModel
                 .WithMany() // 1:n
@@ -122,13 +127,13 @@ namespace WareHouseManagerWebApp.Data
                 .HasColumnName("upload_dateTime").IsRequired();
             modelBuilder.Entity<taskModel>()
                 .Property(t => t.FinishDate)
-                .HasColumnName("finish_dateTime");
+                .HasColumnName("finish_dateTime").IsRequired(false);
             modelBuilder.Entity<taskModel>()
                 .Property(t => t.RampName)
                 .HasColumnName("ramp_name").IsRequired().HasMaxLength(50);
             modelBuilder.Entity<taskModel>()
                 .Property(t => t.EmployeeId)
-                .HasColumnName("worker_worker_id").IsRequired();
+                .HasColumnName("worker_worker_id").IsRequired(false);
             modelBuilder.Entity<taskModel>()
                 .Property(t => t.LocationId)
                 .HasColumnName("locations_locations_id").IsRequired();

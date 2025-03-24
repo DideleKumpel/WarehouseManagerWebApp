@@ -40,6 +40,9 @@ namespace WareHouseManagerWebApp.Pages
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+            bool noReturnUrl = false;
+            if (returnUrl == null)
+                noReturnUrl = true;
             ReturnUrl = returnUrl ?? Url.Content("~/");
 
             if (!ModelState.IsValid)
@@ -80,7 +83,7 @@ namespace WareHouseManagerWebApp.Pages
                 authProperties);
 
             // Redirect to ReturnUrl (or homepage)
-            if( user.Employee.Role == "manager" )
+            if( user.Employee.Role == "manager" && noReturnUrl)
             {
                 return LocalRedirect("/Tasks/taskManager");
             }

@@ -8,9 +8,9 @@ namespace WareHouseManagerWebApp.Model
         public string Type { get; set; }
         public string Status { get; set; }
         public DateTime UploadDate { get; set; }
-        public DateTime FinishDate { get; set; }
+        public DateTime? FinishDate { get; set; }
         public  string RampName { get; set; }
-        public  int EmployeeId { get; set; }
+        public  int? EmployeeId { get; set; }
         public int LocationId { get; set; }
         public string ProductBarcode { get; set; }
 
