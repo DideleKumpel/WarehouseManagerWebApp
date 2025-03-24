@@ -24,17 +24,6 @@ namespace WareHouseManagerWebApp.Service
                 .ToListAsync();
         }
 
-        //// Get a task by its ID
-        //public async Task<taskModel> GetTaskByIdAsync(int taskId)
-        //{
-        //    return await _context.Tasks
-        //        .Include(t => t.Ramp)
-        //        .Include(t => t.Employee)
-        //        .Include(t => t.Location)
-        //        .Include(t => t.Product)
-        //        .FirstOrDefaultAsync(t => t.Id == taskId);
-        //}
-
         // Add a new task
         public async Task AddTaskAsync(taskModel task)
         {

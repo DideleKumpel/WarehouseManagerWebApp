@@ -14,6 +14,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<userService>();
 builder.Services.AddScoped<taskService>();
 builder.Services.AddScoped<rampService>();
+builder.Services.AddScoped<productService>();
+builder.Services.AddScoped<taskLocationCoordinationService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
