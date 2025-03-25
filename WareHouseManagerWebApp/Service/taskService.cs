@@ -39,14 +39,23 @@ namespace WareHouseManagerWebApp.Service
         }
 
         // Delete a task
-        public async Task DeleteTaskAsync(int taskId)
+        public async Task DeleteTaskAsync(taskModel task)
         {
-            var task = await _context.Tasks.FindAsync(taskId);
             if (task != null)
             {
                 _context.Tasks.Remove(task);
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public async Task<taskModel> GetTaskByIdAsync(int id)
+        {
+            return await _context.Tasks
+                .Include(t => t.Employee)
+                .Include(t => t.Location)
+                .Include(t => t.Product)
+                .Include(t => t.Ramp)
+                .FirstOrDefaultAsync(t => t.Id == id);
         }
     }
 }

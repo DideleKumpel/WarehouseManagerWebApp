@@ -22,7 +22,21 @@ namespace WareHouseManagerWebApp.Service
                 _context.Locations.Update(location);
                 await _context.SaveChangesAsync();
             }
-            
+        }
+
+        public async Task DeleteUnloadTask(taskModel task)
+        {
+            if (task != null)
+            {
+                locationModel location = await _context.Locations.FindAsync(task.LocationId);
+                if (location != null)
+                {
+                    location.ItemBarcode = null;
+                    _context.Tasks.Remove(task);
+                    _context.Locations.Update(location);
+                    await _context.SaveChangesAsync();
+                }
+            }
         }
     }
 }

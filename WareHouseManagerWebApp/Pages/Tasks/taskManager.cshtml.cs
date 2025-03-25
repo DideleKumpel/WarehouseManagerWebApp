@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using WareHouseManagerWebApp.Data;
 using WareHouseManagerWebApp.Model;
 using WareHouseManagerWebApp.Service;
@@ -66,8 +66,8 @@ namespace WareHouseManagerWebApp.Pages.Tasks
             };
 
         }
-
-        public async Task<IActionResult> OnPostAsync()
+        //Method for adding new task
+        public async Task<IActionResult> OnPostAddAsync()
         {
 
             taskModel taskToAdd = new taskModel
@@ -80,7 +80,7 @@ namespace WareHouseManagerWebApp.Pages.Tasks
                 LocationId = -1,
                 ProductBarcode = ProductrSelect.SelectedItemBarcode
             };
-            if(TaskTypeValue == "load")
+            if (TaskTypeValue == "load")
             {
                 taskToAdd.LocationId = await _locationService.GetSpaceIdWithProduct(taskToAdd.ProductBarcode);
                 if (taskToAdd.LocationId == -1)
@@ -107,7 +107,31 @@ namespace WareHouseManagerWebApp.Pages.Tasks
             return RedirectToPage();
         }
 
+        public async Task<IActionResult> OnPostDeleteAsync(int taskId)
+        {
 
+            taskModel task = await _taskService.GetTaskByIdAsync(taskId);
+            if (task == null)
+            {
+                ModelState.AddModelError("All", "Error ocured while deleting");
+                return RedirectToPage();
+            }
+
+            if (task.Status != "toDo")
+            {
+                ModelState.AddModelError("All", "Task is in progress");
+                return RedirectToPage();
+            }
+            if (task.Type == "load")
+            {
+                await _taskService.DeleteTaskAsync(task);
+            }
+            else if (task.Type == "unload")
+            {
+                await _taskLocationCoordinationService.DeleteUnloadTask(task);
+            }
+            return RedirectToPage();
+        }
 
     }
     //classes for holidng data in select boxes 
@@ -119,8 +143,8 @@ namespace WareHouseManagerWebApp.Pages.Tasks
     public class ProductrSelectViewModel
     {
         public string SelectedItemBarcode { get; set; }
-        public List <SelectListItem> Products { get; set; }
+        public List<SelectListItem> Products { get; set; }
     }
-    
+
 }
 

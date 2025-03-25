@@ -23,7 +23,7 @@
         <select asp-for="ProductrSelect.SelectedItemBarcode" asp-items="Model.ProductrSelect.Products" class="form-control">
         </select>
     </div>
-    <button type="submit">Add</button>
+    <button type="submit" asp-page-handler="Add">Add</button>
 
     <div asp-validation-summary="All"></div>
 </form>
@@ -31,6 +31,7 @@
 <table>
     <thead>
         <tr>
+            <th>Id</th>
             <th>Type</th>
             <th>Barcode</th>
             <th>Ramp</th>
@@ -46,6 +47,7 @@
         @foreach (var product in Model.Tasks)
         {
             <tr>
+                <td>@product.Id</td>
                 <td>@product.Type</td>
                 <td>@product.ProductBarcode</td>
                 <td>@product.RampName</td>
@@ -66,7 +68,10 @@
                 </td>
 
                 <td>
-                    <a asp-action="Delete" asp-route-id="@product.Id">Delete</a>
+                    <form method="post">
+                        <input type="hidden" name="taskId" value="@product.Id" />
+                        <button type="submit" asp-page-handler="Delete" class="btn btn-danger">Delete</button>
+                    </form>
                 </td>
             </tr>
         }
