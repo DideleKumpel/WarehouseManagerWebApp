@@ -26,21 +26,50 @@ namespace WareHouseManagerWebApp.Service
         {
             return await _context.Products.ToListAsync();
         }
-        //public async Task<bool> ProductBarcodeExistAsync(string Barcode)
-        //{
-            
-        //}
-        //public async Task<bool> ProductAlreadyExistAsync(string Name, string Category, string Description, double Weight)
-        //{
-            
-        //}
+        public async Task AddProductAsync(productModel product)
+        {
+            if(product == null)
+            {
+                throw new Exception("Product is null");
+            }
+            if ( await ProductAlreadyExistAsync(product))
+            {
+                throw new Exception("Product already exist");
+            }
+            _context.Products.Add(product);
+            await _context.SaveChangesAsync();
+        }
+        public async Task<bool> ProductBarcodeExistAsync(string Barcode)
+        {
+            productModel exist = _context.Products.FirstOrDefault(p => p.Barcode == Barcode);
+            if (exist != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public async Task<bool> ProductAlreadyExistAsync(productModel product)
+        {
+            productModel exist = _context.Products.FirstOrDefault(p => p.Barcode == product.Barcode && p.Name == product.Name && p.Weight == product.Weight && p.Category == product.Category && p.Description == product.Description);
+            if(exist != null)
+            {
+                return true;
+            }else
+            {
+                return false;
+            }    
+
+        }
         //public async Task<bool> ProductInsertAsync(string Barcode, string Name, string Category, string Description, double Weight)
         //{
-           
+
         //}
         //public async Task<bool> DeleteProductsAsync(string Barcode)
         //{
-            
+
         //}
         //public async Task<bool> UpdateProductAsync(string Barcode, string Name, string Category, string Description, double Weight)
         //{

@@ -1,0 +1,71 @@
+﻿@page
+@model WareHouseManagerWebApp.Pages.productManagerModel
+@{
+}
+
+<form method="post">
+    <div>
+        <label asp-for="Input.Barcode"></label>
+        <input asp-for="Input.Barcode" />
+        <span asp-validation-for="Input.Barcode"></span>
+    </div>
+    <div>
+        <label asp-for="Input.Name"></label>
+        <input asp-for="Input.Name" />
+        <span asp-validation-for="Input.Name"></span>
+    </div>
+    <div>
+        <label asp-for="Input.Category"></label>
+        <input asp-for="Input.Category" />
+        <span asp-validation-for="Input.Category"></span>
+    </div>
+    <div>
+        <label asp-for="Input.Weight"></label>
+        <input asp-for="Input.Weight" />
+        <span asp-validation-for="Input.Weight"></span>
+    </div>
+    <div>
+        <label asp-for="Input.Description"></label>
+        <input asp-for="Input.Description" />
+        <span asp-validation-for="Input.Description"></span>
+    </div>
+
+    <button type="submit" asp-page-handler="Add">Add</button>
+
+    <div asp-validation-summary="All"></div>
+</form>
+<table>
+    <thead>
+        <tr>
+            <th>Barcode</th>
+			<th>Name</th>
+            <th>Category</th>
+            <th>Weight</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model.Products)
+        {
+            <tr>
+                <td>@product.Barcode</td>
+				<td>@product.Name</td>
+                <td>@product.Category</td>
+				<td>@product.Weight</td>
+				<td>@product.Description</td>
+                <td>
+                    <form method="post">
+                        <input type="hidden" name="barcode" value="@product.Barcode" />
+                        <button type="submit" asp-page-handler="Delete" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="post">
+                        <input type="hidden" name="barcode" value="Input" />
+                        <button type="submit" asp-page-handler="Edit" class="btn btn-danger">Edit</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

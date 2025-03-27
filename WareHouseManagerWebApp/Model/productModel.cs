@@ -8,6 +8,5 @@ namespace WareHouseManagerWebApp.Model
         public string Category { get; set; }
         public string Barcode { get; set;}
         public string Description { get; set; }
-
     }
 }

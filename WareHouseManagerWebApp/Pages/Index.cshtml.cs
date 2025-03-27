@@ -85,7 +85,7 @@ namespace WareHouseManagerWebApp.Pages
             // Redirect to ReturnUrl (or homepage)
             if( user.Employee.Role == "manager" && noReturnUrl)
             {
-                return LocalRedirect("/Tasks/taskManager");
+                return LocalRedirect("/taskManager");
             }
             else if (user.Employee.Role == "operator")
             {

@@ -31,7 +31,6 @@
 <table>
     <thead>
         <tr>
-            <th>Id</th>
             <th>Type</th>
             <th>Barcode</th>
             <th>Ramp</th>
@@ -44,22 +43,21 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var product in Model.Tasks)
+        @foreach (var task in Model.Tasks)
         {
             <tr>
-                <td>@product.Id</td>
-                <td>@product.Type</td>
-                <td>@product.ProductBarcode</td>
-                <td>@product.RampName</td>
-                <td>@product.Location.Shelf</td>
-                <td>@product.Location.Row</td>
-                <td>@product.Location.Level</td>
-                <td>@product.UploadDate</td>
-                <td>@product.Status</td>
+                <td>@task.Type</td>
+                <td>@task.ProductBarcode</td>
+                <td>@task.RampName</td>
+                <td>@task.Location.Shelf</td>
+                <td>@task.Location.Row</td>
+                <td>@task.Location.Level</td>
+                <td>@task.UploadDate</td>
+                <td>@task.Status</td>
                 <td>
-                    @if (@product.EmployeeId != null)
+                    @if (@task.EmployeeId != null)
                     {
-                        @($"{product.EmployeeId} {product.Employee.Name} {product.Employee.Lastname}")
+                        @($"{task.EmployeeId} {task.Employee.Name} {task.Employee.Lastname}")
                     }
                     else
                     {
@@ -69,7 +67,7 @@
 
                 <td>
                     <form method="post">
-                        <input type="hidden" name="taskId" value="@product.Id" />
+                        <input type="hidden" name="taskId" value="@task.Id" />
                         <button type="submit" asp-page-handler="Delete" class="btn btn-danger">Delete</button>
                     </form>
                 </td>

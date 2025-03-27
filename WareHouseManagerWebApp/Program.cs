@@ -11,19 +11,22 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+//DB services
 builder.Services.AddScoped<userService>();
 builder.Services.AddScoped<taskService>();
 builder.Services.AddScoped<rampService>();
 builder.Services.AddScoped<productService>();
 builder.Services.AddScoped<taskLocationCoordinationService>();
 
+//authorization
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.LoginPath = "/Login";
-        options.LogoutPath = "/Logout";
+        options.LoginPath = "/";
+        options.LogoutPath = "/";
         options.AccessDeniedPath = "/AccessDenied";
     });
+
 
 var app = builder.Build();
 

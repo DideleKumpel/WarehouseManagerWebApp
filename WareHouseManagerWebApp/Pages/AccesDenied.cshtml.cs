@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace WareHouseManagerWebApp.Pages
 {
-    public class productMenagerModel : PageModel
+    public class AccesDeniedModel : PageModel
     {
         public void OnGet()
         {

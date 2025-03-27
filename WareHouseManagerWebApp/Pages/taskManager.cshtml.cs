@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -8,6 +9,7 @@ using WareHouseManagerWebApp.Service;
 
 namespace WareHouseManagerWebApp.Pages.Tasks
 {
+    [Authorize(Roles = "manager")]
     public class taskManagerModel : PageModel
     {
 
