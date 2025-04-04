@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel;
+using System.Security.Cryptography;
 using WareHouseManagerWebApp.Data;
 using WareHouseManagerWebApp.Model;
 using WareHouseManagerWebApp.Service;
@@ -47,31 +48,16 @@ namespace WareHouseManagerWebApp.Pages.Tasks
             Tasks = await _taskService.GetAllTasksAsync();
 
             //Load load ramps name for select box
-            var ramps = await _rampService.LoadRampsAsync();
-            RampSelect = new RampselectViewModel
-            {
-                Ramps = ramps.Select(r => new SelectListItem
-                {
-                    Value = r.Name,
-                    Text = r.Name
-                }).ToList()
-            };
+            await FillRampsSelectBox();
+
             //load products for select box
-            var products = await _productService.LoadProductsAsync();
-            ProductrSelect = new ProductrSelectViewModel
-            {
-                Products = products.Select(p => new SelectListItem
-                {
-                    Value = p.Barcode,
-                    Text = p.Barcode + " " + p.Name
-                }).ToList()
-            };
+            await FillPorductSelectBox();
 
         }
         //Method for adding new task
         public async Task<IActionResult> OnPostAddAsync()
         {
-
+            
             taskModel taskToAdd = new taskModel
             {
                 Type = TaskTypeValue,
@@ -87,11 +73,12 @@ namespace WareHouseManagerWebApp.Pages.Tasks
                 taskToAdd.LocationId = await _locationService.GetSpaceIdWithProduct(taskToAdd.ProductBarcode);
                 if (taskToAdd.LocationId == -1)
                 {
-                    ModelState.AddModelError("All", "No empty space available");
+                    TempData["ErrorMessage"] = "Product is not in stock";
                 }
                 else
                 {
                     await _taskService.AddTaskAsync(taskToAdd);
+                    TempData["SuccesMessage"] = "Task added";
                 }
             }
             else if (TaskTypeValue == "unload")
@@ -99,14 +86,18 @@ namespace WareHouseManagerWebApp.Pages.Tasks
                 taskToAdd.LocationId = await _locationService.GetEmptySpaceId();
                 if (taskToAdd.LocationId == -1)
                 {
-                    ModelState.AddModelError("All", "No empty space available");
+                    TempData["ErrorMessage"] = "No empty space available";
                 }
                 else
                 {
                     await _taskLocationCoordinationService.AddUnLoadTask(taskToAdd);
+                    TempData["SuccesMessage"] = "Task added";
                 }
             }
-            return RedirectToPage();
+
+            Tasks = await _taskService.GetAllTasksAsync();
+            OnGetAsync();
+            return Page();
         }
 
         public async Task<IActionResult> OnPostDeleteAsync(int taskId)
@@ -126,13 +117,38 @@ namespace WareHouseManagerWebApp.Pages.Tasks
             }
             if (task.Type == "load")
             {
-                await _taskService.DeleteTaskAsync(task);
+                await _taskLocationCoordinationService.DeleteLoadTask(task);
             }
             else if (task.Type == "unload")
             {
                 await _taskLocationCoordinationService.DeleteUnloadTask(task);
             }
             return RedirectToPage();
+        }
+
+        public async Task FillRampsSelectBox()
+        {
+            var ramps = await _rampService.LoadRampsAsync();
+            RampSelect = new RampselectViewModel
+            {
+                Ramps = ramps.Select(r => new SelectListItem
+                {
+                    Value = r.Name,
+                    Text = r.Name
+                }).ToList()
+            };
+        }
+        public async Task FillPorductSelectBox()
+        {
+            var products = await _productService.LoadProductsAsync();
+            ProductrSelect = new ProductrSelectViewModel
+            {
+                Products = products.Select(p => new SelectListItem
+                {
+                    Value = p.Barcode,
+                    Text = p.Barcode + " " + p.Name
+                }).ToList()
+            };
         }
 
     }

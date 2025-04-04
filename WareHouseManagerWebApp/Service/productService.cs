@@ -36,6 +36,10 @@ namespace WareHouseManagerWebApp.Service
             {
                 throw new Exception("Product already exist");
             }
+            if (await ProductBarcodeExistAsync(product.Barcode))
+            {
+                throw new Exception("Product barcode already exist");
+            }
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
         }

@@ -21,7 +21,7 @@
     </div>
     <div>
         <label asp-for="Input.Weight"></label>
-        <input asp-for="Input.Weight" />
+        <input type="number" step="0.1" asp-for="Input.Weight" />
         <span asp-validation-for="Input.Weight"></span>
     </div>
     <div>
@@ -31,8 +31,15 @@
     </div>
 
     <button type="submit" asp-page-handler="Add">Add</button>
-
-    <div asp-validation-summary="All"></div>
+    <span asp-validation-summary="All"></span>
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
 </form>
 <table>
     <thead>

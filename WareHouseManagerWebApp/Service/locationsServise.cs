@@ -37,7 +37,7 @@ namespace WareHouseManagerWebApp.Service
         }
         public async Task<int> GetSpaceIdWithProduct(string productBarcode)
         {
-            locationModel location = await _context.Locations.FirstOrDefaultAsync(l => l.ItemBarcode == productBarcode);
+            locationModel location = await _context.Locations.FirstOrDefaultAsync(l => l.ItemBarcode == productBarcode && l.IsOnLocation == true);
             if (location == null)
             {
                 return -1;

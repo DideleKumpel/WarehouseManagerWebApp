@@ -101,8 +101,14 @@ namespace WareHouseManagerWebApp.Data
                 .Property(l => l.MaxCapacity)
                 .HasColumnName("maxcapacity").IsRequired();
             modelBuilder.Entity<locationModel>()
+                .Property(l => l.IsOnLocation)
+                .HasColumnName("is_on_location").IsRequired();
+            modelBuilder.Entity<locationModel>()
                 .Property(l => l.ItemBarcode)
                 .HasColumnName("products_products_id").IsRequired(false);
+            modelBuilder.Entity<locationModel>()
+                .Property(l => l.IsOnLocation)
+                .HasColumnName("IsOnLocation").IsRequired();
 
             //Relaction in db
             modelBuilder.Entity<locationModel>()

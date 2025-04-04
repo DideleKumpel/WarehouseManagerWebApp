@@ -19,13 +19,19 @@
         </select>
     </div>
     <div class="form-group">
-        <label asp-for="ProductrSelect.SelectedItemBarcode">Select ramp</label>
+        <label asp-for="ProductrSelect.SelectedItemBarcode">Select product</label>
         <select asp-for="ProductrSelect.SelectedItemBarcode" asp-items="Model.ProductrSelect.Products" class="form-control">
         </select>
     </div>
     <button type="submit" asp-page-handler="Add">Add</button>
-
-    <div asp-validation-summary="All"></div>
+    @if (TempData["SuccesMessage"] != null)
+    {
+        <div class="alert alert-success">@TempData["SuccesMessage"]</div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
 </form>
 
 <table>
