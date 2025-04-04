@@ -57,5 +57,11 @@ namespace WareHouseManagerWebApp.Service
                 .Include(t => t.Ramp)
                 .FirstOrDefaultAsync(t => t.Id == id);
         }
+
+        public async Task<taskModel> GetNumOfTasksWithProductAsync(string barcode)
+        {
+            return await _context.Tasks.FirstOrDefaultAsync( b => b.ProductBarcode == barcode);
+        }
+
     }
 }

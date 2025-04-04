@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
+using System.Data;
 using System.IO.Packaging;
 using System.Linq;
 using System.Text;
@@ -67,16 +68,30 @@ namespace WareHouseManagerWebApp.Service
             }    
 
         }
-        //public async Task<bool> ProductInsertAsync(string Barcode, string Name, string Category, string Description, double Weight)
-        //{
+        
+        public async Task DeleteProductAsync(string barcode)
+        {
+            if (barcode != null)
+            {
+                try
+                {
+                    productModel product = await _context.Products.FirstOrDefaultAsync(p => p.Barcode == barcode);
+                    if (product != null)
+                    {
+                        _context.Products.Remove(product);
+                        await _context.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        throw new Exception("Product not found");
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error deleting product: " + e.Message);
 
-        //}
-        //public async Task<bool> DeleteProductsAsync(string Barcode)
-        //{
-
-        //}
-        //public async Task<bool> UpdateProductAsync(string Barcode, string Name, string Category, string Description, double Weight)
-        //{
-        //}
+                }
+            }
+        }
     }
 }

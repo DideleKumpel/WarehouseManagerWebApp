@@ -95,7 +95,6 @@ namespace WareHouseManagerWebApp.Pages.Tasks
                 }
             }
 
-            Tasks = await _taskService.GetAllTasksAsync();
             OnGetAsync();
             return Page();
         }
