@@ -17,11 +17,11 @@
     </thead>
     <tbody>
             <tr>
-                <td>Product.Barcode</td>
-                <td>Product.Name</td>
-                <td>Product.Category</td>
-                <td>Product.Weight</td>
-                <td>Product.Description</td>
+                <td>@Model.Product.Barcode</td>
+                <td>@Model.Product.Name</td>
+                <td>@Model.Product.Category</td>
+                <td>@Model.Product.Weight</td>
+                <td>@Model.Product.Description</td>
             </tr>
     </tbody>
 </table>
@@ -48,7 +48,7 @@
         <span asp-validation-for="Input.Description"></span>
     </div>
 
-    <button type="submit" asp-page-handler="Add">Add</button>
+    <button type="submit" asp-page-handler="Eddit">Edit</button>
     <span asp-validation-summary="All"></span>
     @if (TempData["SuccessMessage"] != null)
     {

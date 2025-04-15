@@ -68,7 +68,6 @@ namespace WareHouseManagerWebApp.Service
             }    
 
         }
-        
         public async Task DeleteProductAsync(string barcode)
         {
             if (barcode != null)
@@ -92,6 +91,10 @@ namespace WareHouseManagerWebApp.Service
 
                 }
             }
+        }
+        public async Task<productModel> GetProductByBarcode(string barcode)
+        {
+            return await _context.Products.FirstOrDefaultAsync(p => p.Barcode == barcode);
         }
     }
 }

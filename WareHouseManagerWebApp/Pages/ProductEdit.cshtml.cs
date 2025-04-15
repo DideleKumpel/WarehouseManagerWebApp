@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WareHouseManagerWebApp.Model;
 using WareHouseManagerWebApp.Service;
+using WareHouseManagerWebApp.Data;
 
 namespace WareHouseManagerWebApp.Pages
 {
@@ -14,9 +15,14 @@ namespace WareHouseManagerWebApp.Pages
 
         public productModel Input { get; set; }
 
-        public async Task OnGetAsync(int ProductId)
+        public ProductEditModel(AppDbContext appContext)
         {
+            _productService = new productService(appContext);
+        }
 
+        public async Task OnGetAsync(string id)
+        {
+            Product = await _productService.GetProductByBarcode(id);
         }
     }
 }
