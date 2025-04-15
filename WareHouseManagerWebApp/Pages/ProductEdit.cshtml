@@ -1,0 +1,61 @@
+﻿@page
+@model WareHouseManagerWebApp.Pages.ProductEditModel
+@{
+}
+
+<h1>Editing product:</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Barcode</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Weight</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+            <tr>
+                <td>Product.Barcode</td>
+                <td>Product.Name</td>
+                <td>Product.Category</td>
+                <td>Product.Weight</td>
+                <td>Product.Description</td>
+            </tr>
+    </tbody>
+</table>
+
+<form method="post">
+    <div>
+        <label asp-for="Input.Name"></label>
+        <input asp-for="Input.Name" />
+        <span asp-validation-for="Input.Name"></span>
+    </div>
+    <div>
+        <label asp-for="Input.Category"></label>
+        <input asp-for="Input.Category" />
+        <span asp-validation-for="Input.Category"></span>
+    </div>
+    <div>
+        <label asp-for="Input.Weight"></label>
+        <input type="number" step="0.1" asp-for="Input.Weight" />
+        <span asp-validation-for="Input.Weight"></span>
+    </div>
+    <div>
+        <label asp-for="Input.Description"></label>
+        <input asp-for="Input.Description" />
+        <span asp-validation-for="Input.Description"></span>
+    </div>
+
+    <button type="submit" asp-page-handler="Add">Add</button>
+    <span asp-validation-summary="All"></span>
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+</form>
