@@ -48,8 +48,7 @@ namespace WareHouseManagerWebApp.Pages
 
         public async Task OnGet()
         {
-            Products = await _productService.LoadProductsAsync();
-
+                Products = await _productService.LoadProductsAsync();
         }
 
         public async Task<IActionResult> OnPostAddAsync()
@@ -80,30 +79,45 @@ namespace WareHouseManagerWebApp.Pages
                 TempData["ErrorMessage"] = "Error ocurred while adding task.";
             }
 
-            Products = await _productService.LoadProductsAsync();
+            try
+            {
+                Products = await _productService.LoadProductsAsync();
+            }
+            catch
+            {
+                return LocalRedirect("/Error");
+            }
             return Page();
         }
 
         public async Task<IActionResult> OnPostDeleteAsync(string barcode)
         {
-            if (string.IsNullOrEmpty(barcode))
+            try
             {
-                TempData["ErrorMessage"] = "Product not selected";
-                Products = await _productService.LoadProductsAsync();
-                return Page();
+                if (string.IsNullOrEmpty(barcode))
+                {
+                    TempData["ErrorMessage"] = "Product not selected";
+                    Products = await _productService.LoadProductsAsync();
+                    return Page();
+                }
+                if (await _locationService.GetSpaceIdWithProduct(barcode) != -1)
+                {
+                    TempData["ErrorMessage"] = "Can't delete product that is in stock";
+                    Products = await _productService.LoadProductsAsync();
+                    return Page();
+                }
+                if (await _taskService.GetNumOfTasksWithProductAsync(barcode) != null)
+                {
+                    TempData["ErrorMessage"] = "Can't delete product that is in stock";
+                    Products = await _productService.LoadProductsAsync();
+                    return Page();
+                }
             }
-            if (await _locationService.GetSpaceIdWithProduct(barcode) != -1)
+            catch
             {
-                TempData["ErrorMessage"] = "Can't delete product that is in stock";
-                Products = await _productService.LoadProductsAsync();
-                return Page();
+                return LocalRedirect("/Error");
             }
-            if (await _taskService.GetNumOfTasksWithProductAsync(barcode) != null)
-            {
-                TempData["ErrorMessage"] = "Can't delete product that is in stock";
-                Products = await _productService.LoadProductsAsync();
-                return Page();
-            }
+
             try
             {
                 await _productService.DeleteProductAsync(barcode);
@@ -114,7 +128,14 @@ namespace WareHouseManagerWebApp.Pages
                 TempData["SuccessMessage"] = "Error ocured while deleting";
             }
 
-            Products = await _productService.LoadProductsAsync();
+            try
+            {
+                Products = await _productService.LoadProductsAsync();
+            }
+            catch
+            {
+                return LocalRedirect("/Error");
+            }
             return Page();
         }
     }

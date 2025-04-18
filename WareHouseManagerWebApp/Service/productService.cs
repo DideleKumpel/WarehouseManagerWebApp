@@ -92,9 +92,23 @@ namespace WareHouseManagerWebApp.Service
                 }
             }
         }
-        public async Task<productModel> GetProductByBarcode(string barcode)
+        public async Task<productModel> GetProductByBarcodeAsync(string barcode)
         {
             return await _context.Products.FirstOrDefaultAsync(p => p.Barcode == barcode);
+        }
+
+        public async Task UpdateProductAsync(productModel product)
+        {
+            if (product == null)
+            {
+                throw new Exception("Product is null");
+            }
+            if (await ProductAlreadyExistAsync(product))
+            {
+                throw new Exception("Product already exist");
+            }
+            _context.Products.Update(product);
+            await _context.SaveChangesAsync();
         }
     }
 }

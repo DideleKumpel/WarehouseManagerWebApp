@@ -17,38 +17,35 @@
     </thead>
     <tbody>
             <tr>
-                <td>@Model.Product.Barcode</td>
-                <td>@Model.Product.Name</td>
-                <td>@Model.Product.Category</td>
-                <td>@Model.Product.Weight</td>
-                <td>@Model.Product.Description</td>
+                <td>@Model.OrginalProduct.Barcode</td>
+                <td>@Model.OrginalProduct.Name</td>
+                <td>@Model.OrginalProduct.Category</td>
+                <td>@Model.OrginalProduct.Weight</td>
+                <td>@Model.OrginalProduct.Description</td>
             </tr>
     </tbody>
 </table>
-
+<h1> Enter new data</h1>
 <form method="post">
+    <input type="hidden" asp-for="OrginalProduct.Barcode" />
     <div>
         <label asp-for="Input.Name"></label>
         <input asp-for="Input.Name" />
-        <span asp-validation-for="Input.Name"></span>
     </div>
     <div>
         <label asp-for="Input.Category"></label>
         <input asp-for="Input.Category" />
-        <span asp-validation-for="Input.Category"></span>
     </div>
     <div>
         <label asp-for="Input.Weight"></label>
         <input type="number" step="0.1" asp-for="Input.Weight" />
-        <span asp-validation-for="Input.Weight"></span>
     </div>
     <div>
         <label asp-for="Input.Description"></label>
         <input asp-for="Input.Description" />
-        <span asp-validation-for="Input.Description"></span>
     </div>
 
-    <button type="submit" asp-page-handler="Eddit">Edit</button>
+    <button type="submit" asp-page-handler="Edit">Edit</button>
     <span asp-validation-summary="All"></span>
     @if (TempData["SuccessMessage"] != null)
     {
