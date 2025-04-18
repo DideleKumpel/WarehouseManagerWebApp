@@ -1,0 +1,44 @@
+﻿@page
+@model WareHouseManagerWebApp.Pages.assignedToTaskPanelModel
+@{
+}
+
+<h1>Task assignment panel</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>Barcode</th>
+            <th>Ramp</th>
+            <th>Shelf</th>
+            <th>Row</th>
+            <th>Level</th>
+            <th>Upload date</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var task in Model.Tasks)
+        {
+            <tr>
+                <td>@task.Type</td>
+                <td>@task.ProductBarcode</td>
+                <td>@task.RampName</td>
+                <td>@task.Location.Shelf</td>
+                <td>@task.Location.Row</td>
+                <td>@task.Location.Level</td>
+                <td>@task.UploadDate</td>
+                <td>@task.Status</td>
+
+
+                <td>
+                    <form method="post">
+                        <input type="hidden" name="taskId" value="@task.Id" />
+                        <button type="submit" asp-page-handler="Assign" class="btn btn-danger">Assign the task</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

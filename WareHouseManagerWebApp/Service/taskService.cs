@@ -63,5 +63,28 @@ namespace WareHouseManagerWebApp.Service
             return await _context.Tasks.FirstOrDefaultAsync( b => b.ProductBarcode == barcode);
         }
 
+        public async Task <List<taskModel>> GetFreeToTakeTasksAsync()
+        {
+            return await _context.Tasks
+                .Include(t => t.Employee)
+                .Include(t => t.Location)
+                .Include(t => t.Product)
+                .Include(t => t.Ramp)
+                .Where(t => t.Status == "toDo")
+                .ToListAsync();
+        }
+
+        public async Task AssignedUserToTask(int UserId, int TaskId)
+        {
+            var task = await _context.Tasks.FindAsync(TaskId);
+            if (task != null)
+            {
+                task.EmployeeId = UserId;
+                task.Status = "taken";
+                _context.Tasks.Update(task);
+                await _context.SaveChangesAsync();
+            }
+        }
+
     }
 }
