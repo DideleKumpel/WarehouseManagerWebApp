@@ -92,9 +92,19 @@ namespace WareHouseManagerWebApp.Service
                 .Include(t => t.Location)
                 .Include(t => t.Product)
                 .Include(t => t.Ramp)
-                .Where(t => t.EmployeeId == UserId)
+                .Where(t => t.EmployeeId == UserId  && t.Status != "done")
                 .ToListAsync();
         }
-
+        public async Task AbondedUserTask(int TaskId)
+        {
+            var task = await _context.Tasks.FindAsync(TaskId);
+            if (task != null)
+            {
+                task.EmployeeId = null;
+                task.Status = "todo";
+                _context.Tasks.Update(task);
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }

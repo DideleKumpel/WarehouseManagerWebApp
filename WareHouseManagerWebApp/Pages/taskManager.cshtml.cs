@@ -77,7 +77,7 @@ namespace WareHouseManagerWebApp.Pages.Tasks
                 }
                 else
                 {
-                    await _taskService.AddTaskAsync(taskToAdd);
+                    await _taskLocationCoordinationService.AddLoadTask(taskToAdd);
                     TempData["SuccesMessage"] = "Task added";
                 }
             }
@@ -95,7 +95,7 @@ namespace WareHouseManagerWebApp.Pages.Tasks
                 }
             }
 
-            OnGetAsync();
+            await OnGetAsync();
             return Page();
         }
 

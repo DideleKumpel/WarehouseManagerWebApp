@@ -67,5 +67,33 @@ namespace WareHouseManagerWebApp.Service
                 }
             }
         }
+
+        public async Task FinishUnloadTask(taskModel task)
+        {
+            locationModel location = await _context.Locations.FindAsync(task.LocationId);
+            if (location != null)
+            {
+                location.IsOnLocation = true;
+                task.Status = "done";
+                task.FinishDate = DateTime.Now;
+                _context.Tasks.Update(task);
+                _context.Locations.Update(location);
+                await _context.SaveChangesAsync();
+            }
+        }
+        public async Task FinishLoadTask(taskModel task)
+        {
+            locationModel location = await _context.Locations.FindAsync(task.LocationId);
+            if (location != null)
+            {
+                location.ItemBarcode = null;
+                location.IsOnLocation = false;
+                task.Status = "done";
+                task.FinishDate = DateTime.Now;
+                _context.Tasks.Update(task);
+                _context.Locations.Update(location);
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }
