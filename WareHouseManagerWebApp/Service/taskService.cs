@@ -85,6 +85,16 @@ namespace WareHouseManagerWebApp.Service
                 await _context.SaveChangesAsync();
             }
         }
+        public async Task<List<taskModel>> GetUserTasksAsync(int UserId)
+        {
+            return await _context.Tasks
+                .Include(t => t.Employee)
+                .Include(t => t.Location)
+                .Include(t => t.Product)
+                .Include(t => t.Ramp)
+                .Where(t => t.EmployeeId == UserId)
+                .ToListAsync();
+        }
 
     }
 }

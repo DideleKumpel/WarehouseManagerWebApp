@@ -1,13 +1,13 @@
 ﻿@page
-@model WareHouseManagerWebApp.Pages.assignedToTaskPanelModel
+@model WareHouseManagerWebApp.Pages.assignedTasksPanelModel
 @{
 }
 
 <nav>
-    <a asp-page="/assignToTaskPanel">Task assignment panel</a>
-    <a asp-page="/assignedTasksPanel">Assigned tasks</a>
+        <a asp-page="/assignToTaskPanel">Task assignment panel</a>
+        <a asp-page="/assignedTasksPanel">Assigned tasks</a>
 </nav>
-<h1>Task assignment panel</h1>
+<h1>Assigned tasks panel</h1>
 
 <table>
     <thead>
@@ -39,7 +39,14 @@
                 <td>
                     <form method="post">
                         <input type="hidden" name="taskId" value="@task.Id" />
-                        <button type="submit" asp-page-handler="Assign" class="btn btn-danger">Assign the task</button>
+                        <button type="submit" asp-page-handler="Finish" class="btn btn-danger">Finish task</button>
+                    </form>
+                </td>
+
+                <td>
+                    <form method="post">
+                        <input type="hidden" name="taskId" value="@task.Id" />
+                        <button type="submit" asp-page-handler="Abandoned" class="btn btn-danger">Abandoned task</button>
                     </form>
                 </td>
             </tr>
