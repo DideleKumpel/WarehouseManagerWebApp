@@ -4,18 +4,26 @@
     ViewData["Title"] = "Task Manager Panel";
 }
 
+<head>
+    <meta charset="utf-8" />
+    <title>Login</title>
+	<link rel="stylesheet" href="~/css/styles.css" />
+    <link rel="stylesheet" href="~/css/taskManager.css" />
+    
+</head>
+
 <main>
     <div class="container">
         <section class="taskForm">
             <form method="post"> 
-                <div>
+                <div class="form-group">
                     <label asp-for="TaskTypeValue">Select task </label>
                     <select asp-for="TaskTypeValue" class="form-control">
                         <option value="load">LOAD</option>
                         <option value="unload">UNLOAD</option>
                     </select>
                 </div>
-                    <div class="form-group">
+                <div class="form-group">
                     <label asp-for="RampSelect.SelectedRampId">Select ramp</label>
                     <select asp-for="RampSelect.SelectedRampId" asp-items="Model.RampSelect.Ramps" class="form-control">
                     </select>
@@ -49,6 +57,7 @@
                         <th>Upload date</th>
                         <th>Status</th>
                         <th>Assigned employee</th>
+                        <th></th>
                     </tr>
                 </thead>
                 

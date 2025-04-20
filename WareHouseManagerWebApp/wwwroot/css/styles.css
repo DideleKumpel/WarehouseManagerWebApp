@@ -3,11 +3,43 @@
 
 body {
     font-family: "Lalezar", system-ui;
-    background-color: var(--background-color);
+    background-color: var(--secondary-background-color);
     color: var(--text-primary-color);
 }
 
 .container {
+    background-color: var(--background-color);
     width: 1200px;
     margin: 0 auto;
 }
+
+.formField {
+    display: flex;
+    flex-direction: column;
+    font-size: 30px;
+}
+
+.formField input {
+    height: 30px;
+    margin: 5px 0;
+    font-size: 16px;
+    border: solid 3px var(--primary-color);
+    border-radius: 4px;
+}
+input[type="text"], textarea, input[type="password"] {
+    background-color: var(--secondary-background-color);
+    color: var(--text-primary-color)
+}
+
+.formField span {
+    font-size: 20px;
+}
+
+form button {
+    border: solid 3px var(--primary-color);
+    background: var(--secondary-background-color);
+    color: var(--text-primary-color);
+    font-family: "Lalezar", system-ui;
+}
+
+
