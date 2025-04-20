@@ -3,6 +3,8 @@
 @{
 }
 
+<main>
+
 <h1>Editing product:</h1>
 
 <table>
@@ -28,7 +30,7 @@
 <h1> Enter new data</h1>
 <form method="post">
     <input type="hidden" asp-for="OrginalProduct.Barcode" />
-    <div>
+        <div class="formField">
         <label asp-for="Input.Name"></label>
         <input asp-for="Input.Name" />
     </div>
@@ -36,7 +38,7 @@
         <label asp-for="Input.Category"></label>
         <input asp-for="Input.Category" />
     </div>
-    <div>
+        <div class="formField">
         <label asp-for="Input.Weight"></label>
         <input type="number" step="0.1" asp-for="Input.Weight" />
     </div>
@@ -56,3 +58,4 @@
         <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
     }
 </form>
+

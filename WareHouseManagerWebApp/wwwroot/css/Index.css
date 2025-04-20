@@ -1,0 +1,64 @@
+﻿@import "../css/styles.css";
+
+.container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.loginBg {
+    padding: 30px;
+    height: max-content;
+    width: 400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: solid 10px var(--primary-color);
+    border-radius: 10px;
+}
+
+h2 {
+    font-size: 60px;
+}
+
+form {
+    width: 100%;
+}
+
+.formField {
+    display: flex;
+    flex-direction: column;
+    font-size: 30px;
+}
+
+.formField input {
+    height: 30px;
+    margin: 5px 0;
+    font-size: 16px;
+    border: solid 3px var(--primary-color);
+    border-radius: 4px;
+}
+
+input[type="text"], textarea ,input[type="password"]{
+    background-color: var(--secondary-background-color);
+    color: var(--text-primary-color)
+}
+
+.formField span {
+    font-size: 20px;
+}
+
+form button {
+    width: 150px;
+    height: 75px;
+    margin: 30px 125px 0 125px;
+    font-size: 28px;
+    border: solid 3px var(--primary-color);
+    background: var(--secondary-background-color);
+    color: var(--text-primary-color);
+    font-family: "Lalezar", system-ui;
+
+}
+

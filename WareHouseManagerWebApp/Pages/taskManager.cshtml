@@ -4,80 +4,87 @@
     ViewData["Title"] = "Task Manager Panel";
 }
 
+<main>
+    <div class="container">
+        <section class="taskForm">
+            <form method="post"> 
+                <div>
+                    <label asp-for="TaskTypeValue">Select task </label>
+                    <select asp-for="TaskTypeValue" class="form-control">
+                        <option value="load">LOAD</option>
+                        <option value="unload">UNLOAD</option>
+                    </select>
+                </div>
+                    <div class="form-group">
+                    <label asp-for="RampSelect.SelectedRampId">Select ramp</label>
+                    <select asp-for="RampSelect.SelectedRampId" asp-items="Model.RampSelect.Ramps" class="form-control">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ProductrSelect.SelectedItemBarcode">Select product</label>
+                    <select asp-for="ProductrSelect.SelectedItemBarcode" asp-items="Model.ProductrSelect.Products" class="form-control">
+                    </select>
+                </div>
+               <button type="submit" asp-page-handler="Add">Add</button>
+                @if (TempData["SuccesMessage"] != null)
+                {
+                    <div class="alert alert-success">@TempData["SuccesMessage"]</div>
+                }
+                @if (TempData["ErrorMessage"] != null)
+                {
+                    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+                }
+             </form>
+        </section>
+        <section class="TaskTable">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Barcode</th>
+                        <th>Ramp</th>
+                        <th>Shelf</th>
+                        <th>Row</th>
+                        <th>Level</th>
+                        <th>Upload date</th>
+                        <th>Status</th>
+                        <th>Assigned employee</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                @foreach (var task in Model.Tasks)
+                {
+                    <tr>
+                        <td>@task.Type</td>
+                        <td>@task.ProductBarcode</td>
+                        <td>@task.RampName</td>
+                        <td>@task.Location.Shelf</td>
+                        <td>@task.Location.Row</td>
+                        <td>@task.Location.Level</td>
+                        <td>@task.UploadDate</td>
+                        <td>@task.Status</td>
+                        <td>
+                            @if (@task.EmployeeId != null)
+                            {
+                                @($"{task.EmployeeId} {task.Employee.Name} {task.Employee.Lastname}")
+                            }
+                            else
+                            {
+                                <text>none</text>
+                            }
+                        </td>
 
-<form method="post"> 
-    <div>
-        <label asp-for="TaskTypeValue">Select task </label>
-        <select asp-for="TaskTypeValue" class="form-control">
-            <option value="load">LOAD</option>
-            <option value="unload">UNLOAD</option>
-        </select>
+                        <td>
+                            <form method="post">
+                                <input type="hidden" name="taskId" value="@task.Id" />
+                            <button type="submit" asp-page-handler="Delete" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </section>
     </div>
-    <div class="form-group">
-        <label asp-for="RampSelect.SelectedRampId">Select ramp</label>
-        <select asp-for="RampSelect.SelectedRampId" asp-items="Model.RampSelect.Ramps" class="form-control">
-        </select>
-    </div>
-    <div class="form-group">
-        <label asp-for="ProductrSelect.SelectedItemBarcode">Select product</label>
-        <select asp-for="ProductrSelect.SelectedItemBarcode" asp-items="Model.ProductrSelect.Products" class="form-control">
-        </select>
-    </div>
-    <button type="submit" asp-page-handler="Add">Add</button>
-    @if (TempData["SuccesMessage"] != null)
-    {
-        <div class="alert alert-success">@TempData["SuccesMessage"]</div>
-    }
-    @if (TempData["ErrorMessage"] != null)
-    {
-        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
-    }
-</form>
-
-<table>
-    <thead>
-        <tr>
-            <th>Type</th>
-            <th>Barcode</th>
-            <th>Ramp</th>
-            <th>Shelf</th>
-            <th>Row</th>
-            <th>Level</th>
-            <th>Upload date</th>
-            <th>Status</th>
-            <th>Assigned employee</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var task in Model.Tasks)
-        {
-            <tr>
-                <td>@task.Type</td>
-                <td>@task.ProductBarcode</td>
-                <td>@task.RampName</td>
-                <td>@task.Location.Shelf</td>
-                <td>@task.Location.Row</td>
-                <td>@task.Location.Level</td>
-                <td>@task.UploadDate</td>
-                <td>@task.Status</td>
-                <td>
-                    @if (@task.EmployeeId != null)
-                    {
-                        @($"{task.EmployeeId} {task.Employee.Name} {task.Employee.Lastname}")
-                    }
-                    else
-                    {
-                        <text>none</text>
-                    }
-                </td>
-
-                <td>
-                    <form method="post">
-                        <input type="hidden" name="taskId" value="@task.Id" />
-                        <button type="submit" asp-page-handler="Delete" class="btn btn-danger">Delete</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+</main>

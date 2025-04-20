@@ -4,26 +4,44 @@
     Layout = null;
 }
 
-<h2>Login</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Login</title>
+    <link rel="stylesheet" href="~/css/Index.css" />
+	<link rel="stylesheet" href="~/css/styles.css" />
+</head>
 
-<form method="post">
-    <div>
-        <label asp-for="Input.Username"></label>
-        <input asp-for="Input.Username" />
-        <span asp-validation-for="Input.Username"></span>
-    </div>
+<body>
+    <main>
+        <div class="container">
+            <div class="loginBg">
+                <h2>Login</h2>
 
-    <div>
-        <label asp-for="Input.Password"></label>
-        <input asp-for="Input.Password" type="password" />
-        <span asp-validation-for="Input.Password"></span>
-    </div>
+                <form method="post">
+                    <div class="formField">
+                    <label asp-for="Input.Username"></label>
+                    <input asp-for="Input.Username" />
+                    <span asp-validation-for="Input.Username"></span>
+                </div>
 
-    <button type="submit">Log in</button>
+                    <div class="formField">
+                    <label asp-for="Input.Password"></label>
+                    <input asp-for="Input.Password" type="password" />
+                    <span asp-validation-for="Input.Password"></span>
+                </div>
 
-    <div asp-validation-summary="All"></div>
-</form>
+                <button type="submit">Log in</button>
+                
+                    <div asp-validation-summary="All"></div>
+                </form>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+                @section Scripts {
+                      <partial name="_ValidationScriptsPartial" />
+                }
+			</div>
+	        </div>
+	    </main>
+    </body>
+</html>

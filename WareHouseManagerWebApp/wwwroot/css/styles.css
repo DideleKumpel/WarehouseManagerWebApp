@@ -1,0 +1,13 @@
+﻿@import "../css/colors.css";
+@import url('https://fonts.googleapis.com/css2?family=Lalezar&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+body {
+    font-family: "Lalezar", system-ui;
+    background-color: var(--background-color);
+    color: var(--text-primary-color);
+}
+
+.container {
+    width: 1200px;
+    margin: 0 auto;
+}

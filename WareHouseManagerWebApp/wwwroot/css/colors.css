@@ -1,0 +1,12 @@
+﻿:root {
+    --primary-color: #ff7500;
+    --secondary-color: #b4876d;
+    --accent-color: #64676E;
+    --background-color: #1F2022;
+    --secondary-background-color: #2E3033;
+    --error-color: #FFB71C1C;
+    --success-color: #00b93f;
+    --text-primary-color: #FFFFFF;
+    --text-secondary-color: #000000;
+    --datagrid-cell-focus-border-color: #FFFFFF;
+}
