@@ -3,9 +3,14 @@
 @{
 }
 
-<nav>
-        <a asp-page="/assignToTaskPanel">Task assignment panel</a>
-        <a asp-page="/assignedTasksPanel">Assigned tasks</a>
+<head>
+    <link rel="stylesheet" href="~/css/styles.css" />
+    <link rel="stylesheet" href="~/css/assingTaskPanel.css" />
+</head>
+
+<nav class="TaskForEmployeePanelNav">
+    <a asp-page="/assignToTaskPanel">Task assignment panel</a>
+    <a asp-page="/assignedTasksPanel">Assigned tasks</a>
 </nav>
 <h1>Assigned tasks panel</h1>
 
@@ -20,6 +25,8 @@
             <th>Level</th>
             <th>Upload date</th>
             <th>Status</th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>

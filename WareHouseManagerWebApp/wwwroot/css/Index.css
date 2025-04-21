@@ -21,6 +21,10 @@
     border-radius: 10px;
 }
 
+.formField input {
+    width: 360px;
+}
+    
 h2 {
     font-size: 60px;
 }
