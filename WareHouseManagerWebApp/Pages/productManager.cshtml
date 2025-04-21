@@ -3,75 +3,90 @@
 @{
 }
 
-<form method="post">
-    <div>
-        <label asp-for="Input.Barcode"></label>
-        <input asp-for="Input.Barcode" />
-        <span asp-validation-for="Input.Barcode"></span>
-    </div>
-    <div>
-        <label asp-for="Input.Name"></label>
-        <input asp-for="Input.Name" />
-        <span asp-validation-for="Input.Name"></span>
-    </div>
-    <div>
-        <label asp-for="Input.Category"></label>
-        <input asp-for="Input.Category" />
-        <span asp-validation-for="Input.Category"></span>
-    </div>
-    <div>
-        <label asp-for="Input.Weight"></label>
-        <input type="number" step="0.1" asp-for="Input.Weight" />
-        <span asp-validation-for="Input.Weight"></span>
-    </div>
-    <div>
-        <label asp-for="Input.Description"></label>
-        <input asp-for="Input.Description" />
-        <span asp-validation-for="Input.Description"></span>
-    </div>
+<head>
+    <link rel="stylesheet" href="~/css/styles.css" />
+    <link rel="stylesheet" href="~/css/productManager.css" />
+</head>
 
-    <button type="submit" asp-page-handler="Add">Add</button>
-    <span asp-validation-summary="All"></span>
-    @if (TempData["SuccessMessage"] != null)
-    {
-        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
-    }
-    @if (TempData["ErrorMessage"] != null)
-    {
-        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
-    }
-</form>
-<table>
-    <thead>
-        <tr>
-            <th>Barcode</th>
-			<th>Name</th>
-            <th>Category</th>
-            <th>Weight</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var product in Model.Products)
-        {
-            <tr>
-                <td>@product.Barcode</td>
-				<td>@product.Name</td>
-                <td>@product.Category</td>
-				<td>@product.Weight</td>
-				<td>@product.Description</td>
-                <td>
-                    <form method="post">
-                        <input type="hidden" name="barcode" value="@product.Barcode" />
-                        <button type="submit" asp-page-handler="Delete" class="btn btn-danger">Delete</button>
-                    </form>
-                </td>
-                <td>
-                    <a asp-page="ProductEdit"
-                    asp-route-id="@product.Barcode"
-                    class="btn btn-danger">Edit Product</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<main>
+    <div class="container">
+        <section class="taskForm">
+            <form method="post">
+                <div class="formField">
+                    <label asp-for="Input.Barcode"></label>
+                    <input asp-for="Input.Barcode" />
+                    <span asp-validation-for="Input.Barcode"></span>
+                </div>
+                <div class="formField">
+                    <label asp-for="Input.Name"></label>
+                    <input asp-for="Input.Name" />
+                   <span asp-validation-for="Input.Name"></span>
+                </div>
+                <div class="formField">
+                    <label asp-for="Input.Category"></label>
+                    <input asp-for="Input.Category" />
+                    <span asp-validation-for="Input.Category"></span>
+                </div>
+                <div class="formField">
+                    <label asp-for="Input.Weight"></label>
+                    <input type="number" step="0.1" asp-for="Input.Weight" />
+                    <span asp-validation-for="Input.Weight"></span>
+                </div>
+                <div class="formField">
+                    <label asp-for="Input.Description"></label>
+                    <input asp-for="Input.Description" />
+                    <span asp-validation-for="Input.Description"></span>
+                </div>
+
+                <button type="submit" asp-page-handler="Add">Add</button>
+                <span asp-validation-summary="All"></span>
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+                }
+                @if (TempData["ErrorMessage"] != null)
+                {
+                    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+                }
+            </form>
+        </section>
+        <section class="TaskTable">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Barcode</th>
+			            <th>Name</th>
+                        <th>Category</th>
+                        <th>Weight</th>
+                        <th>Description</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model.Products)
+                    {
+                        <tr>
+                            <td>@product.Barcode</td>
+				            <td>@product.Name</td>
+                            <td>@product.Category</td>
+				            <td>@product.Weight</td>
+				            <td>@product.Description</td>
+                            <td>
+                             <form method="post">
+                                 <input type="hidden" name="barcode" value="@product.Barcode" />
+                                 <button type="submit" asp-page-handler="Delete" class="btn btn-danger">Delete</button>
+                             </form>
+                            </td>
+                            <td>
+                                <a asp-page="ProductEdit"
+                                asp-route-id="@product.Barcode"
+                                class="btn btn-danger">Edit Product</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </section>
+   </div>
+</main>

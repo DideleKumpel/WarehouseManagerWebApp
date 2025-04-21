@@ -1,12 +1,14 @@
 ﻿@import "../css/colors.css";
 
 .container {
+    background: var(--secondary-background-color);
     height: 100vh;
     display: flex;
     align-items: center;
 }
 
 .loginBg {
+    background: var(--background-color);
     padding: 30px;
     height: max-content;
     width: 400px;
