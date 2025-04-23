@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -41,6 +43,11 @@ namespace WareHouseManagerWebApp.Pages
                 TempData["ErrorMessage"] = "Task not found.";
             }
             return RedirectToPage();
+        }
+        public async Task<IActionResult> OnPostLogoutAsync()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToPage("/Index"); // lub np. "/Login" w zale¿noœci gdzie chcesz przekierowaæ po wylogowaniu
         }
     }
 }

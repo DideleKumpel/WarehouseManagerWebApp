@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using WareHouseManagerWebApp.Model;
 using WareHouseManagerWebApp.Service;
 using WareHouseManagerWebApp.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 
 namespace WareHouseManagerWebApp.Pages
 {
@@ -86,6 +88,11 @@ namespace WareHouseManagerWebApp.Pages
                 return false;
             }
             return true;
+        }
+        public async Task<IActionResult> OnPostLogoutAsync()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToPage("/Index"); // lub np. "/Login" w zale¿noœci gdzie chcesz przekierowaæ po wylogowaniu
         }
     }
 }

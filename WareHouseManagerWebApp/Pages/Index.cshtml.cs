@@ -89,7 +89,7 @@ namespace WareHouseManagerWebApp.Pages
             }
             else if (user.Employee.Role == "operator")
             {
-                return LocalRedirect("/operatorPanel");
+                return LocalRedirect("/assignToTaskPanel");
             }
             return LocalRedirect(ReturnUrl);
         }

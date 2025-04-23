@@ -2,8 +2,13 @@
 @model WareHouseManagerWebApp.Pages.ProductEditModel
 @{
 }
+<head>
+    <link rel="stylesheet" href="~/css/styles.css" />
+    <link rel="stylesheet" href="~/css/productManager.css" />
+</head>
 
 <main>
+    <div class="container">
 
 <h1>Editing product:</h1>
 
@@ -34,7 +39,7 @@
         <label asp-for="Input.Name"></label>
         <input asp-for="Input.Name" />
     </div>
-    <div>
+        <div class="formField">
         <label asp-for="Input.Category"></label>
         <input asp-for="Input.Category" />
     </div>
@@ -42,7 +47,7 @@
         <label asp-for="Input.Weight"></label>
         <input type="number" step="0.1" asp-for="Input.Weight" />
     </div>
-    <div>
+        <div class="formField">
         <label asp-for="Input.Description"></label>
         <input asp-for="Input.Description" />
     </div>
@@ -59,3 +64,5 @@
     }
 </form>
 
+    </div>
+    </main>
